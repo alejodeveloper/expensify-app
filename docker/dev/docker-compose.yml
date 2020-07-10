@@ -24,9 +24,9 @@ services:
       - expensify-app-nt
 
     # celery beat
-  celery-weather:
-    image: weather-app/dev
-    container_name: weather-celery
+  celery-expensify:
+    image: expensify-app/dev
+    container_name: expensify-celery
     entrypoint: celery -A app worker --loglevel=INFO --beat
     depends_on:
       - postgresql-expensify-app
@@ -70,8 +70,8 @@ services:
     environment:
       SWAGGER_JSON: "/swagger_spec/expensify-api-swagger.yaml"
     networks:
-      - weather-app-nt
+      - expensify-app-nt
 
 networks:
-  weather-app-nt:
+  expensify-app-nt:
     external: true

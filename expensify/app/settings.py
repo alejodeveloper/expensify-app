@@ -75,8 +75,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ.get(
+            'DB_ENGINE', 'django.db.backends.postgresql_psycopg2'
+        ),
+        'NAME': os.environ.get('DB_NAME', 'expensify-app'),
+        'USER': os.environ.get('DB_USERNAME', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'expensify1234'),
+        'HOST': os.environ.get('DB_HOST', 'postgresql-expensify-app'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -118,3 +124,30 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+################################################################################
+############################# CELERY SETTINGS  #################################
+################################################################################
+if os.environ.get('CELERY', False):
+    remove_apps = [
+        'django.contrib.sessions',
+        'django.contrib.staticfiles',
+        'rest_framework',
+    ]
+    for aplication in remove_apps:
+        INSTALLED_APPS.remove(aplication)
+
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis-expensify')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
+
+RABBIT_USER = os.environ.get('RABBITMQ_DEFAULT_USER', 'admin')
+RABBIT_PSSWD = os.environ.get('RABBITMQ_DEFAULT_PASS', 'mypass')
+RABBIT_HOST = os.environ.get('RABBITMQ_DEFAULT_HOST', 'rabbit-expensify')
+RABBIT_PORT = os.environ.get('RABBITMQ_DEFAULT_PORT', '5672')
+
+CELERY_BROKER_URL = f'amqp://{RABBIT_USER}:{RABBIT_PSSWD}@{RABBIT_HOST}:{RABBIT_PORT}'
+CELERY_RESULT_BACKEND = None
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Bogota'

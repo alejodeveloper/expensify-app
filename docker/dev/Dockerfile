@@ -7,9 +7,9 @@ RUN mkdir /app/
 
 WORKDIR /app
 
-COPY ./weather_app/ /app/
+COPY ./expensify/ /app/
 COPY ./docker-entrypoint.sh /app/
-RUN pip install -r pip-requirements.txt
+RUN pip install -r requirements/base-pip-requirements.txt
 
 RUN mkdir /var/run/sshd
 
