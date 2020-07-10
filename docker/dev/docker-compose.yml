@@ -1,0 +1,77 @@
+version: '2'
+services:
+  # django
+  expensify-app:
+    image: expensify-app/dev
+    container_name: expensify-app
+    entrypoint: sh docker-entrypoint.sh
+    depends_on:
+      - postgresql-expensify-app
+    ports:
+      - "8000:8000"
+    networks:
+      - expensify-app-nt
+  # postgresql
+  postgresql-expensify-app:
+    image: postgres
+    container_name: expensify-postgresql
+    environment:
+      - POSTGRES_PASSWORD=expensify1234
+      - POSTGRES_DB=expensify-app
+    ports:
+      - "5432:5432"
+    networks:
+      - expensify-app-nt
+
+    # celery beat
+  celery-weather:
+    image: weather-app/dev
+    container_name: weather-celery
+    entrypoint: celery -A app worker --loglevel=INFO --beat
+    depends_on:
+      - postgresql-expensify-app
+      - rabbit-expensify
+      - redis-expensify
+    environment:
+     - "CELERY=True"
+     - "REDIS_HOST=redis-expensify"
+     - "DB_PASSWORD=expensify1234"
+     - "DB_NAME=expensify-app"
+     - "DB_HOST=postgresql-expensify-app"
+    networks:
+      - expensify-app-nt
+  #rabbit
+  rabbit-expensify:
+    hostname: rabbit
+    image: rabbitmq:latest
+    container_name: expensify-rabbit
+    networks:
+      - expensify-app-nt
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5673:5672"
+  # redis
+  redis-expensify:
+    image: redis
+    container_name: expensify-redis
+    networks:
+      - expensify-app-nt
+
+  # Swagger
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: expensify-app-open-api
+    ports:
+      - "8081:8080"
+    volumes:
+    - "../../swagger_spec:/swagger_spec"
+    environment:
+      SWAGGER_JSON: "/swagger_spec/expensify-api-swagger.yaml"
+    networks:
+      - weather-app-nt
+
+networks:
+  weather-app-nt:
+    external: true
