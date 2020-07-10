@@ -38,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'users',
 ]
+
+
+################################################################################
+# ########################## CHANGE THE AUTH USER SETTINGS ####################
+################################################################################
+AUTH_USER_MODEL = 'users.ExpenseUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +89,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'expensify-app'),
         'USER': os.environ.get('DB_USERNAME', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'expensify1234'),
-        'HOST': os.environ.get('DB_HOST', 'postgresql-expensify-app'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
