@@ -1,0 +1,128 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/alejodveloper/home/1.0.0
+  - description: localhost docker open api image
+    url: http://localhost:8001/
+info:
+  description: API for Wheater APP
+  version: "1.0.0"
+  title: Wheater APP API
+  contact:
+    email: alejo.pm92@gmail.com
+  license:
+    name: Local server
+    url: 'http://localhost:8001/'
+tags:
+  - name:  weather
+    description: Weather api description
+
+paths:
+  /api/v2/weather:
+    get:
+      tags:
+        - weather
+      summary: This endpoint should use an external API to get
+        the proper info for a queried city
+      description: |
+        This endpoint should use an external API to get the proper info
+        for a queried city
+      parameters:
+        - in: query
+          name: city
+          schema:
+            type: string
+        - in: query
+          name: country
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v2-get-weather'
+        '400':
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+components:
+  schemas:
+    v2-get-weather:
+      type: object
+      required:
+          - location_name
+          - temperature
+          - wind
+          - cloudiness
+          - pressure
+          - humidity
+          - sunrise
+          - sunset
+          - geo_coordinates
+          - requested_time
+      properties:
+        location_name:
+          type: string
+          format: string
+          example: "London, UK"
+
+        temperature:
+          type: string
+          format: string
+          example: "12.45 °C"
+
+        wind:
+          type: string
+          format: string
+          example: "clear sky, 3.1 m/s, south"
+
+        cloudiness:
+          type: string
+          format: string
+          example: "Clear"
+
+        pressure:
+          type: string
+          format: string
+          example: "1010 hpa"
+
+        humidity:
+          type: string
+          format: string
+          example: "66%"
+
+        sunrise:
+          type: string
+          format: string
+          example: "05:23"
+
+        sunset:
+          type: string
+          format: string
+          example: "18:41"
+
+        geo_coordinates:
+          type: string
+          format: string
+          example: "[51.51 - -0.13]"
+
+        requested_time:
+          type: string
+          format: string
+          example: "2020-04-06 02:23"
+
+    bad-request:
+      type: object
+      required:
+        - message_error
+      properties:
+        message_error:
+          type: string
+          format: string
+          example: "The request must be made with country slug and city slug, current are city None and country None"
