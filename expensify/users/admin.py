@@ -7,19 +7,44 @@ from .models import ExpenseUser
 class ExpenseUserAdmin(UserAdmin):
 
     model = ExpenseUser
-    list_display = ('email', 'is_staff', 'is_active',)
+    list_display = (
+        'first_name',
+        'last_name',
+        'email',
+        'user_type',
+        'is_staff',
+        'is_active',
+    )
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (
+            None, {
+                'fields': (
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'user_type',
+                    'password'
+                )
+            }
+        ),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': (
+                    'email',
+                    'password1',
+                    'password2',
+                    'is_staff',
+                    'is_active'
+                )
+            }
         ),
     )
-    search_fields = ('email',)
+    search_fields = ('email', 'user_type',)
     ordering = ('email',)
 
 

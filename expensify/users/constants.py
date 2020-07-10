@@ -14,6 +14,7 @@ class UserTypes(Enum):
 
     FREE = 'free'
     PREMIUM = 'premium'
+    ADMIN = 'admin'
 
     @classmethod
     def get_values(cls) -> list:
