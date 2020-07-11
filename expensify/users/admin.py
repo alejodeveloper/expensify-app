@@ -47,5 +47,4 @@ class ExpenseUserAdmin(UserAdmin):
     search_fields = ('email', 'user_type',)
     ordering = ('email',)
 
-
 admin.site.register(ExpenseUser, ExpenseUserAdmin)
