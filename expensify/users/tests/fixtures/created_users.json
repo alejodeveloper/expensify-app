@@ -1,0 +1,24 @@
+[
+  {
+    "model": "users.expenseuser",
+    "pk": 1,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Lennon",
+      "username": "jhon.lenon@test.com",
+      "email": "jhon.lenon@test.com",
+      "user_type": "free"
+    }
+  },
+  {
+    "model": "users.expenseuser",
+    "pk": 2,
+    "fields": {
+      "first_name": "Paul",
+      "last_name": "Mc Cartney",
+      "username": "paul.cartney@test.com",
+      "email": "paul.cartney@test.com",
+      "user_type": "free"
+    }
+  }
+]
