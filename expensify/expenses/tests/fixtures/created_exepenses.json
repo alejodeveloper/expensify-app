@@ -1,0 +1,96 @@
+[
+  {
+    "model": "users.expenseuser",
+    "pk": 1,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Lennon",
+      "username": "jhon.lenon@test.com",
+      "email": "jhon.lenon@test.com",
+      "user_type": "free"
+    }
+  },
+  {
+    "model": "users.expenseuser",
+    "pk": 2,
+    "fields": {
+      "first_name": "Paul",
+      "last_name": "Mc Cartney",
+      "username": "paul.cartney@test.com",
+      "email": "paul.cartney@test.com",
+      "user_type": "free"
+    }
+  },
+  {
+    "model": "expenses.expense_type",
+    "pk": 1,
+    "fields": {
+      "name": "Food",
+      "slug": "food"
+    }
+  },
+  {
+    "model": "expenses.expense_type",
+    "pk": 2,
+    "fields": {
+      "name": "Clothing",
+      "slug": "clothing"
+    }
+  },
+  {
+    "model": "expenses.expense_type",
+    "pk": 3,
+    "fields": {
+      "name": "Sports",
+      "slug": "sports"
+    }
+  },
+  {
+    "model": "expenses.expense_type",
+    "pk": 4,
+    "fields": {
+      "name": "Home appliance",
+      "slug": "home-appliance"
+    }
+  },
+  {
+    "model": "expenses.expense",
+    "pk": 1,
+    "fields": {
+      "user_id": 1,
+      "expense_type__id": 1,
+      "cost": 15000,
+      "expense_date": "2020-07-12"
+    }
+  },
+  {
+    "model": "expenses.expense",
+    "pk": 2,
+    "fields": {
+      "user_id": 1,
+      "expense_type__id": 2,
+      "cost": 150000,
+      "expense_date": "2020-07-12"
+    }
+  },
+  {
+    "model": "expenses.expense",
+    "pk": 3,
+    "fields": {
+      "user_id": 2,
+      "expense_type__id": 1,
+      "cost": 2000,
+      "expense_date": "2020-07-12"
+    }
+  },
+  {
+    "model": "expenses.expense",
+    "pk": 4,
+    "fields": {
+      "user_id": 2,
+      "expense_type__id": 4,
+      "cost": 2000000,
+      "expense_date": "2020-07-12"
+    }
+  }
+]
