@@ -28,6 +28,12 @@ class ExpenseUser(AbstractUser):
     )
     # add additional fields in here
 
+    class Meta:
+        indexes = [
+            models.Index(fields=["user_id"]),
+            models.Index(fields=["user_id", "user_type"]),
+        ]
+
     def __str__(self):
         return self.username
 

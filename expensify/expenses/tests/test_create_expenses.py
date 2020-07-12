@@ -14,9 +14,9 @@ class JwtExpenseUserTest(TestCase):
 
     def setUp(self) -> None:
         self.test_client = Client()
-        self.jhon = ExpenseUser.objects.get(pk=1)
-        self.jhon.set_password("abcdefg")
-        self.test_expense = Expense.objects.get(user=self.jhon)
+        self.jhon_exp = ExpenseUser.objects.get(pk=4)
+        self.jhon_exp.set_password("abcdefg")
+        self.jhon_exp.save()
 
     def test_get_expenses_unauthorize(self):
 
@@ -36,7 +36,7 @@ class JwtExpenseUserTest(TestCase):
     def test_post_expenses(self):
 
         jhon_data = {
-            "username": "jhon.lenon@test.com",
+            "username": "jhon.lenon-expe@test.com",
             "password": "abcdefg",
         }
 
@@ -50,18 +50,19 @@ class JwtExpenseUserTest(TestCase):
 
         test_url = reverse('expenses_urls:user_expenses')
         token = jwt_reponse.data.get('access')
-        auth_header = {'Authorization': f'Bearer {token}'}
-
+        auth_header = {'Authorization': f'Token {token}'}
+        self.test_client.login(**jhon_data)
         test_request = self.test_client.post(
             test_url,
-            expense_data,
+            content_type="application/json",
+            data=expense_data,
             **auth_header
         )
         self.assertEqual(test_request.status_code, 201)
 
     def test_get_expenses(self):
         jhon_data = {
-            "username": "jhon.lenon@test.com",
+            "username": "jhon.lenon-expe@test.com",
             "password": "abcdefg",
         }
         test_url = reverse('users_urls:token_obtain_pair')
@@ -69,8 +70,13 @@ class JwtExpenseUserTest(TestCase):
 
         test_url = reverse('expenses_urls:user_expenses')
         token = jwt_reponse.data.get('access')
-        auth_header = {'Authorization': f'Bearer {token}'}
-        test_request = self.test_client.post(test_url, **auth_header)
+        auth_header = {'AUTHORIZATION': f'Token {token}'}
+        auth = self.test_client.login(**jhon_data)
+        test_request = self.test_client.get(
+            test_url,
+            content_type="application/json",
+            **auth_header
+        )
 
         test_json = test_request.json()
 

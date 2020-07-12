@@ -1,28 +1,28 @@
 [
   {
     "model": "users.expenseuser",
-    "pk": 1,
+    "pk": 4,
     "fields": {
       "first_name": "John",
       "last_name": "Lennon",
-      "username": "jhon.lenon@test.com",
-      "email": "jhon.lenon@test.com",
+      "username": "jhon.lenon-expe@test.com",
+      "email": "jhon.lenon-expe@test.com",
       "user_type": "free"
     }
   },
   {
     "model": "users.expenseuser",
-    "pk": 2,
+    "pk": 5,
     "fields": {
       "first_name": "Paul",
       "last_name": "Mc Cartney",
-      "username": "paul.cartney@test.com",
-      "email": "paul.cartney@test.com",
+      "username": "paul.cartney-expe@test.com",
+      "email": "paul.cartney-expe@test.com",
       "user_type": "free"
     }
   },
   {
-    "model": "expenses.expense_type",
+    "model": "expenses.expensetype",
     "pk": 1,
     "fields": {
       "name": "Food",
@@ -30,7 +30,7 @@
     }
   },
   {
-    "model": "expenses.expense_type",
+    "model": "expenses.expensetype",
     "pk": 2,
     "fields": {
       "name": "Clothing",
@@ -38,7 +38,7 @@
     }
   },
   {
-    "model": "expenses.expense_type",
+    "model": "expenses.expensetype",
     "pk": 3,
     "fields": {
       "name": "Sports",
@@ -46,7 +46,7 @@
     }
   },
   {
-    "model": "expenses.expense_type",
+    "model": "expenses.expensetype",
     "pk": 4,
     "fields": {
       "name": "Home appliance",
@@ -57,40 +57,48 @@
     "model": "expenses.expense",
     "pk": 1,
     "fields": {
-      "user_id": 1,
-      "expense_type__id": 1,
+      "user_id": 4,
+      "expense_type_id": 1,
       "cost": 15000,
-      "expense_date": "2020-07-12"
+      "expense_date": "2020-07-12",
+      "created_at": "2020-07-12",
+      "updated_at": "2020-07-12"
     }
   },
   {
     "model": "expenses.expense",
     "pk": 2,
     "fields": {
-      "user_id": 1,
-      "expense_type__id": 2,
+      "user_id": 4,
+      "expense_type_id": 2,
       "cost": 150000,
-      "expense_date": "2020-07-12"
+      "expense_date": "2020-07-12",
+      "created_at": "2020-07-12",
+      "updated_at": "2020-07-12"
     }
   },
   {
     "model": "expenses.expense",
     "pk": 3,
     "fields": {
-      "user_id": 2,
-      "expense_type__id": 1,
+      "user_id": 5,
+      "expense_type_id": 1,
       "cost": 2000,
-      "expense_date": "2020-07-12"
+      "expense_date": "2020-07-12",
+      "created_at": "2020-07-12",
+      "updated_at": "2020-07-12"
     }
   },
   {
     "model": "expenses.expense",
     "pk": 4,
     "fields": {
-      "user_id": 2,
-      "expense_type__id": 4,
+      "user_id": 5,
+      "expense_type_id": 4,
       "cost": 2000000,
-      "expense_date": "2020-07-12"
+      "expense_date": "2020-07-12",
+      "created_at": "2020-07-12",
+      "updated_at": "2020-07-12"
     }
   }
 ]

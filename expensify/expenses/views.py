@@ -1,3 +1,19 @@
-from django.shortcuts import render
+"""
+expenses.views
+--------------
+API views for expenses app
+"""
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from .models import Expense
+from .serializers import UserExpenseSerializer
+
+
+class ExpenseListView(ModelViewSet):
+    queryset = Expense.get_all()
+    serializer_class = UserExpenseSerializer
+    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [JWTAuthentication, ]

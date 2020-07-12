@@ -34,3 +34,7 @@ class ExpenseTypeSlug(Enum):
         Return the choices representation for the model
         """
         return [(key.value, key.name) for key in cls]
+
+
+class GeneralConstants(Enum):
+    DATE_STRFORMAT = "%Y-%m-%d"

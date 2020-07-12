@@ -1,3 +1,8 @@
+"""
+expenses.models
+---------------
+Class Models for expenses app
+"""
 import uuid
 
 from django.db import models
@@ -10,10 +15,14 @@ from .constants import ExpenseTypeSlug
 class ExpenseType(models.Model):
     name = models.CharField(blank=False, null=False, max_length=255)
     slug = models.CharField(
+        max_length=255,
         blank=False,
         null=False,
         choices=ExpenseTypeSlug.choices()
     )
+
+    def __str__(self):
+        return f"{self.slug.name}"
 
 
 class Expense(models.Model):
@@ -44,6 +53,22 @@ class Expense(models.Model):
         null=False,
         blank=False
     )
-    date = models.DateTimeField()
+    expense_date = models.DateTimeField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["user_id"]),
+            models.Index(fields=["user_id", "expense_date"]),
+            models.Index(fields=["user_id", "expense_id"]),
+            models.Index(fields=["user_id", "expense_type"]),
+        ]
+
+    @classmethod
+    def get_all(cls):
+        """
+        Get all the objects and return a queryset
+        :return: queryset with all query objects
+        """
+        return cls.objects.all()
