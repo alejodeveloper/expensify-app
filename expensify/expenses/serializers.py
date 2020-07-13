@@ -6,7 +6,7 @@ restframework serializers for expenses app
 
 from rest_framework.serializers import ModelSerializer
 
- from .models import Expense
+from .models import Expense
 
 
 class UserExpenseSerializer(ModelSerializer):
