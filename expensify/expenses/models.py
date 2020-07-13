@@ -80,3 +80,12 @@ class Expense(models.Model):
         :return: queryset with all query objects
         """
         return cls.objects.all()
+
+    @classmethod
+    def get_user_expenses(cls, user_id: int):
+        """
+        Get the expenses of the user id pass as parameter
+        :param user_id: Identifier of the model object ExpenseUser
+        :return: Queryset
+        """
+        return cls.objects.filter(user__id=user_id)

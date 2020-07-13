@@ -18,7 +18,6 @@ from .serializers import UserExpenseSerializer
 
 
 class ExpenseListView(ModelViewSet):
-    queryset = Expense.get_all()
     serializer_class = UserExpenseSerializer
     permission_classes = [IsAuthenticated, ]
     authentication_classes = [JWTAuthentication, ]
@@ -69,3 +68,9 @@ class ExpenseListView(ModelViewSet):
         """
         if ExpenseTypeSlug.get_values().get(value):
             return ExpenseType.get_expense_type(value)
+
+    def get_queryset(self):
+        """
+        Return the queryset for the expenses user
+        """
+        return Expense.get_user_expenses(self.request.user.id)
