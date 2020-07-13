@@ -22,13 +22,21 @@ class ExpenseType(models.Model):
     )
 
     def __str__(self):
-        return f"{self.slug.name}"
+        return f"{self.slug}"
+
+    @classmethod
+    def get_expense_type(cls, slug):
+        """
+        Get a expense type object from a slug pass as parameter
+        :param slug: str of a slug
+        :return: object class instance
+        """
+        return cls.objects.get(slug=slug)
 
 
 class Expense(models.Model):
     expense_id = models.UUIDField(
         default=uuid.uuid4,
-        editable=False,
         null=False,
         blank=False,
     )

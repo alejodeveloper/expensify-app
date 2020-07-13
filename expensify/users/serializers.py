@@ -13,6 +13,7 @@ from .models import ExpenseUser
 
 class ExpenseUserSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
+    username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
     class Meta:
@@ -21,6 +22,7 @@ class ExpenseUserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
+            'username',
             'password',
             'token'
         )

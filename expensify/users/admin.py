@@ -11,6 +11,7 @@ class ExpenseUserAdmin(UserAdmin):
         'first_name',
         'last_name',
         'email',
+        'username',
         'user_type',
         'is_staff',
         'is_active',

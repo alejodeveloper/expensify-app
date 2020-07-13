@@ -22,11 +22,11 @@ class ExpenseTypeSlug(Enum):
     HOME_APPLIANCE = 'home-appliance'
 
     @classmethod
-    def get_values(cls) -> list:
+    def get_values(cls) -> dict:
         """
-        Return a list with the values of the key from the enumerator
+        Return a dict with the values of the key from the enumerator
         """
-        return [key.value for key in cls]
+        return {key.value: key.value for key in cls}
 
     @classmethod
     def choices(cls):
@@ -37,4 +37,4 @@ class ExpenseTypeSlug(Enum):
 
 
 class GeneralConstants(Enum):
-    DATE_STRFORMAT = "%Y-%m-%d"
+    DATE_STRFORMAT = "%Y-%m-%dTHH:mm:ssZ"
