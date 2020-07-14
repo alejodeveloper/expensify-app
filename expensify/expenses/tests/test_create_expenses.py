@@ -2,6 +2,8 @@ import os
 
 from django.test import Client, TestCase
 from django.urls import reverse
+from rest_framework.test import APIClient
+
 from expenses.models import Expense
 from users.models import ExpenseUser
 
@@ -14,6 +16,7 @@ class JwtExpenseUserTest(TestCase):
 
     def setUp(self) -> None:
         self.test_client = Client()
+        self.test_api_client = APIClient()
         self.jhon_exp = ExpenseUser.objects.get(pk=4)
         self.jhon_exp.set_password("abcdefg")
         self.jhon_exp.save()
@@ -50,13 +53,12 @@ class JwtExpenseUserTest(TestCase):
 
         test_url = reverse('expenses_urls:user_expenses')
         token = jwt_reponse.data.get('access')
-        auth_header = {'Authorization': f'Token {token}'}
-        self.test_client.login(**jhon_data)
-        test_request = self.test_client.post(
+
+        self.test_api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+        test_request = self.test_api_client.post(
             test_url,
-            content_type="application/json",
-            data=expense_data,
-            **auth_header
+            expense_data,
+            format='json'
         )
         self.assertEqual(test_request.status_code, 201)
 
@@ -70,15 +72,11 @@ class JwtExpenseUserTest(TestCase):
 
         test_url = reverse('expenses_urls:user_expenses')
         token = jwt_reponse.data.get('access')
-        auth_header = {'AUTHORIZATION': f'Token {token}'}
-        auth = self.test_client.login(**jhon_data)
-        test_request = self.test_client.get(
-            test_url,
-            content_type="application/json",
-            **auth_header
-        )
+
+        self.test_api_client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+        test_request = self.test_api_client.get(test_url)
 
         test_json = test_request.json()
 
         self.assertEqual(test_request.status_code, 200)
-        self.assertEqual(len(test_json.get('expenses')), 2)
+        self.assertEqual(len(test_json), 2)
