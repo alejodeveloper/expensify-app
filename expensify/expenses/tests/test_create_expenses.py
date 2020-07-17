@@ -4,7 +4,6 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from expenses.models import Expense
 from users.models import ExpenseUser
 
 

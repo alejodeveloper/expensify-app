@@ -27,8 +27,7 @@ SECRET_KEY = '@50!2pbw1qs8zls$cb+zn61001amsuza_8b4abb65ti#h37_bp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["localhost"]
 
 # Application definition
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
+    'corsheaders',
     'users',
     'expenses',
 ]
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.ExpenseUser'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -183,3 +184,5 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
+CORS_ORIGIN_ALLOW_ALL = True

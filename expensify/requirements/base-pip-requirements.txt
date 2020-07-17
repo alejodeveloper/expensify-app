@@ -13,3 +13,4 @@ psycopg2-binary
 query-string==2019.4.13
 requests==2.23.0
 redis==3.4.1
+django-cors-headers==3.4.0
